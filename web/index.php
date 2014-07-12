@@ -2,12 +2,18 @@
 
 require_once __DIR__.'/../vendor/autoload.php'; 
 
-$app = new Silex\Application(); 
+$app = new Silex\Application();
+$app['debug'] = true;
 
-$app->get('/hello/{name}', function($name) use($app) { 
+$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+    'db.options' => array(
+        'driver'   => 'pdo_sqlite',
+        'path'     => __DIR__.'/../db/pi-weatherstation.db',
+    ),
+));
+
+$app->get('/hello/{name}', function($name) use($app) {
     return 'Hello '.$app->escape($name); 
-}); 
+});
 
 $app->run(); 
-
-?>
