@@ -4,8 +4,30 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8336df4df6b05448af16cc44882975b3",
+    "hash": "ec881dc9762aba170100a9615266b7b4",
     "packages": [
+        {
+            "name": "adafruit/bmp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adafruit/Adafruit_Python_BMP",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2014-06-17 22:26:07"
+        },
+        {
+            "name": "adafruit/dht",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adafruit/Adafruit_Python_DHT",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2014-06-10 00:00:41"
+        },
         {
             "name": "doctrine/common",
             "version": "2.2.3",
@@ -622,9 +644,10 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "adafruit/dht": 20,
+        "adafruit/bmp": 20
+    },
     "platform": [
 
     ],
