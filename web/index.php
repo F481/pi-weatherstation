@@ -16,4 +16,23 @@ $app->get('/hello/{name}', function($name) use($app) {
     return 'Hello '.$app->escape($name); 
 });
 
-$app->run(); 
+$app->get('/setup', function() use($app) {
+    $reply = "";
+    $sm = $app['db']->getSchemaManager();
+
+    if (sizeof($sm->listTables()) > 0) {
+        $reply = "Database already exists!";
+    } else {
+        // create database
+        $sql = file_get_contents(__DIR__.'/../db/schema.sql');
+        $app['db']->executeQuery($sql);
+
+        if (sizeof($sm->listTables > 0)) {
+            $reply = "Database initialization successful!";
+        }
+    }
+
+    return $reply = ($reply == "" ? "Something went wrong :(" : $reply);
+});
+
+$app->run();
