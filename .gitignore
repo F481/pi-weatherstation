@@ -17,3 +17,5 @@ composer.phar
 
 # PhpStorm
 .idea/*
+
+db/*.db
