@@ -19,5 +19,5 @@ echo "run command: php composer.phar install"
 php composer.phar install
 
 cd ./vendor/adafruit/bmp/ && sudo python setup.py install
-cd $pwd/vendor/adafruit/dht/ && sudo setup.py install
-cd $pwd/ && sqlite3 /db/pi-weatherstation.db < /db/schema.sql
+cd $pwd/vendor/adafruit/dht/ && sudo python setup.py install
+cd $pwd/ && sqlite3 ./db/pi-weatherstation.db < ./db/schema.sql
