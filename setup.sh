@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pwd=`pwd`
+blacklistPath="/etc/modprobe.d/raspi-blacklist.conf"
 
 # install packages
 echo "Installing system packages..."
@@ -8,16 +9,21 @@ sudo apt-get update
 sudo apt-get install php5 sqlite3 php5-sqlite build-essential python-dev python-smbus i2c-tools
 
 # get composer
-echo "Installing Composer..."
+echo "Setting up Composer..."
 if command -v "curl" > /dev/null ; then
     curl -sS https://getcomposer.org/installer | php
 else
     php -r "readfile('https://getcomposer.org/installer');" | php
 fi
 
-echo "run command: php composer.phar install"
 php composer.phar install
 
+echo "Setting up sensor libraries"
 cd ./vendor/adafruit/bmp/ && sudo python setup.py install
 cd $pwd/vendor/adafruit/dht/ && sudo python setup.py install
 cd $pwd/ && sqlite3 ./db/pi-weatherstation.db < ./db/schema.sql
+
+if [ -f $blacklistPath ]; then
+   echo "To make the sensors working, you have to comment out the two following lines: '#blacklist spi-bcm2708' and '#blacklist spi-bcm2708'"
+   sudo nano $blacklistPath
+fi
