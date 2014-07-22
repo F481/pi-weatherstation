@@ -24,6 +24,13 @@ cd $pwd/vendor/adafruit/dht/ && sudo python setup.py install
 cd $pwd/ && sqlite3 ./db/pi-weatherstation.db < ./db/schema.sql
 
 if [ -f $blacklistPath ]; then
-   echo "To make the sensors working, you have to comment out the two following lines: '#blacklist spi-bcm2708' and '#blacklist spi-bcm2708'"
-   sudo nano $blacklistPath
+    read -r -p "Are you sure? [y/N] " response
+    if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+    then
+        do_something
+    else
+        do_something_else
+    fi
+    read -r -p "To make the sensors working, you have to comment out the two following lines: '#blacklist spi-bcm2708' and '#blacklist spi-bcm2708' [Press ENTER]"
+    sudo nano $blacklistPath
 fi
