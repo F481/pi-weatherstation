@@ -25,7 +25,8 @@ pause
 
 # enable i2c modules
 if [ -f ${etcModulesPath} ]; then
-    sudo echo "i2c-bcm2708\ni2c-dev" >> ${etcModulesPath}
+    sudo echo "i2c-bcm2708" >> ${etcModulesPath}
+    sudo echo "i2c-dev" >> ${etcModulesPath}
 fi
 
 # comment out blacklist
@@ -60,5 +61,5 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     sudo reboot
 else
-    echo "You have to reboot the system before use pi-weatherstation"
+    echo "You have to reboot the system before using pi-weatherstation"
 fi
