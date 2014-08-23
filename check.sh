@@ -23,6 +23,7 @@ else
 fi
 
 # testing bmp
+echo
 echo "Testing BMP: sudo python ./vendor/adafruit/bmp/examples/simpletest.py"
 
 cd ${pwd}/vendor/adafruit/bmp/examples/
