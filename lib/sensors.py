@@ -75,18 +75,16 @@ dht_pin = int(config.get('config', 'dht_pin'))
 
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
-humidity, temperature = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
+humidity, temp1 = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
+temp2 = bmp_sensor.read_temperature()
+pressure = bmp_sensor.read_sealevel_pressure(altitude_m=int(config.get('config', 'altitude')))
 
-print 'Temp = {0:0.2f} *C'.format(bmp_sensor.read_temperature())
-print 'Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_pressure())
-print 'Altitude = {0:0.2f} m'.format(bmp_sensor.read_altitude())
-print 'Sealevel Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_sealevel_pressure(altitude_m=int(config.get('config', 'altitude'))))
+if temp1 is None:
+    temp = temp2
+elif temp2 is None:
+    temp = temp1
+else: temp = (temp1 + temp2) / 2
 
-# Note that sometimes you won't get a reading and
-# the results will be null (because Linux can't
-# guarantee the timing of calls to read the sensor).  
-# If this happens try again!
-if humidity is not None and temperature is not None:
-	print 'Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity)
-else:
-	print 'Failed to get reading. Try again!'
+print 'Temperature = {0:0.1f} °C'.format(temp)
+print 'Pressure = {0:0.1f} hPa'.format(pressure / 1000)
+print 'Humidity = {1:0.0f} %'.format(humidity)
