@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# coding=utf-8
+
 # Copyright (c) 2014 Adafruit Industries
 # Author: Tony DiCola
 #
@@ -86,5 +88,5 @@ elif temp2 is None:
 else: temp = (temp1 + temp2) / 2
 
 print 'Temperature = {0:0.1f} °C'.format(temp)
-print 'Pressure = {0:0.1f} hPa'.format(pressure / 1000)
-print 'Humidity = {1:0.0f} %'.format(humidity)
+print 'Pressure = {0:0.1f} hPa'.format(pressure / 100)
+print 'Humidity = {} %'.format(int(round(humidity))) 
