@@ -38,21 +38,25 @@ import Adafruit_DHT
 # You can also optionally change the BMP085 mode to one of BMP085_ULTRALOWPOWER, 
 # BMP085_STANDARD, BMP085_HIGHRES, or BMP085_ULTRAHIGHRES.  See the BMP085
 # datasheet for more details on the meanings of each mode (accuracy and power
+bmp_sensor = BMP085.BMP085()
+
 # consumption are primarily the differences).  The default mode is STANDARD.
 #bmp_sensor = BMP085.BMP085(mode=BMP085.BMP085_ULTRAHIGHRES)
-bmp_sensor = BMP085.BMP085()
-dht_sensor = Adafruit_DHT.DHT22
+
+# Sensor should be set to Adafruit_DHT.DHT11,
+# Adafruit_DHT.DHT22, or Adafruit_DHT.AM2302.
+dht_sensor = Adafruit_DHT.AM2302
 
 # Optionally you can override the bus number:
 #bmp_sensor = BMP085.BMP085(busnum=2)
 
 # Example using a Beaglebone Black with DHT sensor
 # connected to pin P8_11.
-pin = 'P8_11'
+#dht_pin = 'P8_11'
 
 # Example using a Raspberry Pi with DHT sensor
 # connected to pin 23.
-#pin = 23
+dht_pin = 4
 
 print 'Temp = {0:0.2f} *C'.format(bmp_sensor.read_temperature())
 print 'Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_pressure())
@@ -61,7 +65,7 @@ print 'Sealevel Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_sealevel_pressure
 
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
-humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+humidity, temperature = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
 
 # Note that sometimes you won't get a reading and
 # the results will be null (because Linux can't
