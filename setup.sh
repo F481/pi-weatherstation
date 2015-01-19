@@ -69,7 +69,8 @@ cd ./vendor/adafruit/bmp/ && sudo python setup.py install
 cd ${pwd}/vendor/adafruit/dht/ && sudo python setup.py install
 cd ${pwd}/ && sqlite3 ./db/pi-weatherstation.db < ./db/schema.sql
 
-#reboot
+# delete setup file and reboot
+rm -- "$0"
 read -p "System needs to be rebooted, reboot now? [y/n]" -n 1 -r REPLY
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
