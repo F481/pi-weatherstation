@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pwd=`pwd`
+source ./pi-weatherstation.cfg
 blacklistConfPath="/etc/modprobe.d/raspi-blacklist.conf"
 etcModulesPath="/etc/modules"
 
@@ -33,6 +34,20 @@ fi
 if [ -f ${blacklistConfPath} ]; then
     sudo perl -pi -e 's/blacklist spi-bcm2708/#blacklist spi-bcm2708/g' ${blacklistConfPath}
     sudo perl -pi -e 's/blacklist i2c-bcm2708/#blacklist i2c-bcm2708/g' ${blacklistConfPath}
+fi
+
+# create cron job
+if [ ${schedule:2:1} = 'm' ]; then
+    echo "Set up cron job to run every" ${schedule:0:2} "minutes"
+    pause
+    crontab -l | { cat; echo "*/"${schedule:0:2}" * * * * "${pwd}"/lib/sensors.py > /dev/null"; } | crontab -
+elif [ ${schedule:2:1} = 'h' ]; then
+    echo "Set up cron job ro run every" ${schedule:0:2} "hours"
+    pause
+    crontab -l | { cat; echo "0 */"${schedule:0:2}" * * * "${pwd}"/lib/sensors.py > /dev/null"; } | crontab -
+else
+    echo "Wrong unit type in the config file: 'schedule' entry can only be Xh (for hours) or Xm (for minutes)"
+    exit
 fi
 
 echo -n "Setting up Composer"
