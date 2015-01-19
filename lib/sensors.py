@@ -26,6 +26,10 @@
 
 import Adafruit_BMP.BMP085 as BMP085
 import Adafruit_DHT
+import ConfigParser
+
+config = ConfigParser.ConfigParser()
+config.readfp(open(r'../pi-weatherstation.cfg'))
 
 # Default constructor will pick a default I2C bus.
 #
@@ -45,7 +49,19 @@ bmp_sensor = BMP085.BMP085()
 
 # Sensor should be set to Adafruit_DHT.DHT11,
 # Adafruit_DHT.DHT22, or Adafruit_DHT.AM2302.
-dht_sensor = Adafruit_DHT.AM2302
+
+config_sensor_dht = config.get('config', 'sensor_dht')
+
+if config_sensor_dht == 11:
+    dht_sensor = Adafruit_DHT.DHT11
+elif config_sensor_dht == 22:
+    dht_sensor = Adafruit_DHT.DHT22
+elif config_sensor_dht == 2302:
+    dht_sensor = Adafruit_DHT.AM2302
+else:
+    print "Wrong type for 'sensor_dht' in config file: 'sensor_dht' only supports one of 11, 22 or 2302"
+    sys.exit(-1)
+
 
 # Optionally you can override the bus number:
 #bmp_sensor = BMP085.BMP085(busnum=2)
@@ -56,7 +72,7 @@ dht_sensor = Adafruit_DHT.AM2302
 
 # Example using a Raspberry Pi with DHT sensor
 # connected to pin 23.
-dht_pin = 4
+dht_pin = config.get('config', 'dht_pin')
 
 print 'Temp = {0:0.2f} *C'.format(bmp_sensor.read_temperature())
 print 'Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_pressure())
