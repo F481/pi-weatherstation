@@ -27,6 +27,7 @@
 import Adafruit_BMP.BMP085 as BMP085
 import Adafruit_DHT
 import ConfigParser
+import sys
 
 config = ConfigParser.ConfigParser()
 config.readfp(open(r'../pi-weatherstation.cfg'))
@@ -49,8 +50,7 @@ bmp_sensor = BMP085.BMP085()
 
 # Sensor should be set to Adafruit_DHT.DHT11,
 # Adafruit_DHT.DHT22, or Adafruit_DHT.AM2302.
-
-config_sensor_dht = config.get('config', 'sensor_dht')
+config_sensor_dht = int(config.get('config', 'sensor_dht'))
 
 if config_sensor_dht == 11:
     dht_sensor = Adafruit_DHT.DHT11
@@ -62,7 +62,6 @@ else:
     print "Wrong type for 'sensor_dht' in config file: 'sensor_dht' only supports one of 11, 22 or 2302"
     sys.exit(-1)
 
-
 # Optionally you can override the bus number:
 #bmp_sensor = BMP085.BMP085(busnum=2)
 
@@ -72,16 +71,16 @@ else:
 
 # Example using a Raspberry Pi with DHT sensor
 # connected to pin 23.
-dht_pin = config.get('config', 'dht_pin')
-
-print 'Temp = {0:0.2f} *C'.format(bmp_sensor.read_temperature())
-print 'Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_pressure())
-print 'Altitude = {0:0.2f} m'.format(bmp_sensor.read_altitude())
-print 'Sealevel Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_sealevel_pressure())
+dht_pin = int(config.get('config', 'dht_pin'))
 
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
 humidity, temperature = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
+
+print 'Temp = {0:0.2f} *C'.format(bmp_sensor.read_temperature())
+print 'Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_pressure())
+print 'Altitude = {0:0.2f} m'.format(bmp_sensor.read_altitude())
+print 'Sealevel Pressure = {0:0.2f} Pa'.format(bmp_sensor.read_sealevel_pressure(altitude_m=int(config.get('config', 'altitude'))))
 
 # Note that sometimes you won't get a reading and
 # the results will be null (because Linux can't
