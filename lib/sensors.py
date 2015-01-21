@@ -96,8 +96,8 @@ c = conn.cursor()
 wd = (None, temp, humidity, pressure, None)
 c.execute('INSERT INTO weather_data VALUES (?,?,?,?,?)', wd)
 
-c.commit()
-c.close()
+conn.commit()
+conn.close()
 
 print 'Temperature = {0:0.1f} °C'.format(temp)
 print 'Pressure = {0:0.1f} hPa'.format(pressure / 100)

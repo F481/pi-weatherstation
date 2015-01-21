@@ -40,11 +40,11 @@ fi
 if [ ${schedule:2:1} = 'm' ]; then
     echo "Set up cron job to run every" ${schedule:0:2} "minutes"
     pause
-    crontab -l | { cat; echo "*/${schedule:0:2} * * * * ${pwd}/lib/sensors.py > /dev/null"; } | crontab -
+    crontab -l | { cat; echo "*/${schedule:0:2} * * * * python ${pwd}/lib/sensors.py > /dev/null"; } | crontab -
 elif [ ${schedule:2:1} = 'h' ]; then
     echo "Set up cron job ro run every" ${schedule:0:2} "hours"
     pause
-    crontab -l | { cat; echo "0 */${schedule:0:2} * * * ${pwd}/lib/sensors.py > /dev/null"; } | crontab -
+    crontab -l | { cat; echo "0 */${schedule:0:2} * * * phyton ${pwd}/lib/sensors.py > /dev/null"; } | crontab -
 else
     echo "Wrong unit type in the config file: 'schedule' entry can only be Xh (for hours) or Xm (for minutes)"
     exit

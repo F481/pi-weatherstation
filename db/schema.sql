@@ -3,5 +3,5 @@ CREATE TABLE weather_data (
   temperature REAL NOT NULL,
   humidity REAL NOT NULL,
   pressure INTEGER NOT NULL,
-  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+  timestamp DATE DEFAULT (datetime('now', 'localtime'))
 );
