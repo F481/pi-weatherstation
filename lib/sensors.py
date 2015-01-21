@@ -93,8 +93,8 @@ else: temp = (temp1 + temp2) / 2
 conn = sqlite3.connect('../db/pi-weatherstation.db')
 c = conn.cursor()
 
-wd = (None, temp, humidity, pressure, None)
-c.execute('INSERT INTO weather_data VALUES (?,?,?,?,?)', wd)
+wd = (temp, humidity, pressure)
+c.execute('INSERT INTO weather_data (temperature, humidity, pressure) VALUES (?,?,?)', wd)
 
 conn.commit()
 conn.close()
