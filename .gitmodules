@@ -1,0 +1,6 @@
+[submodule "vendor/adafruit/dht"]
+	path = vendor/adafruit/dht
+	url = https://github.com/adafruit/Adafruit_Python_DHT
+[submodule "vendor/adafruit/bmp"]
+	path = vendor/adafruit/bmp
+	url = https://github.com/adafruit/Adafruit_Python_BMP
