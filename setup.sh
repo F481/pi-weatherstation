@@ -50,9 +50,6 @@ else
     exit
 fi
 
-echo -n "Setting up Composer"
-pause
-
 echo -n "Setting up sensor libraries"
 pause
 
