@@ -83,11 +83,10 @@ humidity, temp1 = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
 temp2 = bmp_sensor.read_temperature()
 pressure = bmp_sensor.read_sealevel_pressure(altitude_m=int(config.get('config', 'altitude')))
 
+# if available we want to use temp of dht, because it's more accurate
+temp = temp1
 if temp1 is None:
     temp = temp2
-elif temp2 is None:
-    temp = temp1
-else: temp = (temp1 + temp2) / 2
 
 # persist measurement
 conn = sqlite3.connect('../db/pi-weatherstation.db')
