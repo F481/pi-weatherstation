@@ -19,7 +19,7 @@ echo -n "Install system packages"
 pause
 
 sudo apt-get update
-sudo apt-get -y install php5 sqlite3 php5-sqlite build-essential python-dev python-smbus i2c-tools
+sudo apt-get -y install sqlite3 build-essential python-dev python-smbus i2c-tools
 
 echo -n "Setting up environment"
 pause
@@ -52,14 +52,6 @@ fi
 
 echo -n "Setting up Composer"
 pause
-
-# get composer
-if command -v "curl" > /dev/null ; then
-    curl -sS https://getcomposer.org/installer | php
-else
-    php -r "readfile('https://getcomposer.org/installer');" | php
-fi
-php composer.phar install
 
 echo -n "Setting up sensor libraries"
 pause
