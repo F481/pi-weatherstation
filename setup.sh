@@ -19,10 +19,13 @@ echo -n "Install system packages"
 pause
 
 sudo apt-get update
-sudo apt-get -y install sqlite3 build-essential python-dev python-smbus i2c-tools
+sudo apt-get -y install sqlite3 build-essential python-dev python-smbus i2c-tools apache2
 
 echo -n "Setting up environment"
 pause
+
+sudo a2enmod cgi
+sudo service apache2 restart
 
 # enable i2c modules
 if [ -f ${etcModulesPath} ]; then
