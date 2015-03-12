@@ -4,6 +4,7 @@ pwd=`pwd`
 source ./pi-weatherstation.cfg
 blacklistConfPath="/etc/modprobe.d/raspi-blacklist.conf"
 etcModulesPath="/etc/modules"
+cgibinPath="/usr/lib/cgi-bin"
 
 function pause {
     echo -n "."
@@ -24,7 +25,13 @@ sudo apt-get -y install sqlite3 build-essential python-dev python-smbus i2c-tool
 echo -n "Setting up environment"
 pause
 
+# enable cgi module
 sudo a2enmod cgi
+
+# set installation path as apache env var
+sudo echo "SetEnv PIWS_HOME ${pwd}" > .htaccess
+sudo mv .htaccess ${cgibinPath}
+
 sudo service apache2 restart
 
 # enable i2c modules
