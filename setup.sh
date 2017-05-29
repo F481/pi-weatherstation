@@ -4,6 +4,7 @@ pwd=`pwd`
 source ./pi-weatherstation.cfg
 blacklistConfPath="/etc/modprobe.d/raspi-blacklist.conf"
 etcModulesPath="/etc/modules"
+bootConfigPath="/boot/config.txt"
 cgibinPath="/usr/lib/cgi-bin"
 
 function pause {
@@ -38,6 +39,12 @@ sudo service apache2 restart
 if [ -f ${etcModulesPath} ]; then
     sudo echo "i2c-bcm2708" >> ${etcModulesPath}
     sudo echo "i2c-dev" >> ${etcModulesPath}
+fi
+
+# edit boot options
+if [ -f ${bootConfigPath} ]; then
+    sudo echo "dtparam=i2c1=on" >> ${bootConfigPath}
+    sudo echo "dtparam=i2c_arm=on" >> ${bootConfigPath}
 fi
 
 # comment out blacklist
