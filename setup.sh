@@ -33,6 +33,10 @@ sudo a2enmod cgi
 sudo echo "SetEnv PIWS_HOME ${pwd}" > .htaccess
 sudo mv .htaccess ${cgibinPath}
 
+# move python script to cgi-bin and set correct permissions
+sudo mv lib/getWeatherData.py ${cgibinPath}
+sudo chmod 755 ${cgibinPath}/getWeatherData.py
+
 sudo service apache2 restart
 
 # enable i2c modules
