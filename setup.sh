@@ -41,6 +41,7 @@ sudo chmod 755 ${cgibinPath}/getWeatherData.py
 # move website to www folder
 sudo mkdir -p ${wwwPath}/pi-weatherstation
 sudo mv index.html ${wwwPath}/pi-weatherstation
+sudo mv vendor/highsoft/highcharts.js ${wwwPath}/pi-weatherstation
 
 sudo service apache2 restart
 
