@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PI-WEATHERSTATION</title>
+
+    <script>
+      var xmlhttp = new XMLHttpRequest();
+
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+           if (xmlhttp.status == 200) {
+               data = JSON.parse(xmlhttp.responseText);
+           }
+           else if (xmlhttp.status == 400) {
+              alert('There was an error 400');
+           }
+           else {
+               alert('something else other than 200 was returned');
+           }
+        }
+      };
+
+      xmlhttp.open("GET", "../cgi-bin/getWeatherData.py", true);
+      xmlhttp.send();
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
