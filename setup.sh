@@ -6,6 +6,7 @@ blacklistConfPath="/etc/modprobe.d/raspi-blacklist.conf"
 etcModulesPath="/etc/modules"
 bootConfigPath="/boot/config.txt"
 cgibinPath="/usr/lib/cgi-bin"
+wwwPath="/var/www/html"
 
 function pause {
     echo -n "."
@@ -36,6 +37,10 @@ sudo mv .htaccess ${cgibinPath}
 # move python script to cgi-bin and set correct permissions
 sudo mv lib/getWeatherData.py ${cgibinPath}
 sudo chmod 755 ${cgibinPath}/getWeatherData.py
+
+# move website to www folder
+sudo mkdir -p ${wwwPath}/pi-weatherstation
+sudo mv index.html ${wwwPath}/pi-weatherstation
 
 sudo service apache2 restart
 
