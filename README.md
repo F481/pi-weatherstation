@@ -11,7 +11,7 @@ What hardware do I need?
 | Temperature + Humidity: | [AM2302](http://www.adafruit.com/products/393) | [DHT22](http://www.adafruit.com/product/385) or [DHT11](http://www.adafruit.com/products/386) |
 | Pressure: | [BMP180](http://www.adafruit.com/products/1603) | [BMP085](http://www.adafruit.com/products/391) |
 
-*If you buy all hardware from Ebay the complete weatherstation (listed above) will cost about ~25€
+*If you buy all hardware from Ebay the complete weatherstation (listed above) will cost about ~20€
 
 How to set up the pi-weatherstation?
 ---------------------------------------
