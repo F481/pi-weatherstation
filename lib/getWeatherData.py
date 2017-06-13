@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sqlite3, json
+import sqlite3, json, datetime, time
 
 print "Content-type:application/json\r\n\r\n"
 
@@ -18,9 +18,10 @@ data_point_pres = []
 
 for row in c.fetchall():
 
-        data_point_temp.append([round(row[1], 1), row[4]])
-        data_point_hum.append([round(row[2], 1), row[4]])
-        data_point_pres.append([round(row[3]/1000, 1), row[4]])
+        timestamp = time.mktime(datetime.datetime.strptime(row[4], "%Y-%m-%d %H:%M:%S").timetuple())*1000
+        data_point_temp.append([timestamp, round(row[1], 1)])
+        data_point_hum.append([timestamp, round(row[2], 1)])
+        data_point_pres.append([timestamp, round(row[3]/100, 1)])
 
 weather_data["temperature"] = data_point_temp
 weather_data["humidity"] = data_point_hum
