@@ -15,15 +15,18 @@ function pause {
     sleep 1
     echo "."
     sleep 1
+    echo
 }
 
 # install packages
+echo
 echo -n "Install system packages"
 pause
 
 sudo apt-get update
 sudo apt-get -y install sqlite3 build-essential python-dev python-smbus i2c-tools apache2
 
+echo
 echo -n "Setting up environment"
 pause
 
@@ -64,12 +67,13 @@ if [ -f ${blacklistConfPath} ]; then
 fi
 
 # create cron job
+echo
 if [ ${schedule:2:1} = 'm' ]; then
-    echo "Set up cron job to run every" ${schedule:0:2} "minutes"
+    echo -n "Set up cron job to run every" ${schedule:0:2} "minutes"
     pause
     crontab -l | { cat; echo "*/${schedule:0:2} * * * * cd ${pwd}/lib/ && python sensors.py > /dev/null"; } | crontab -
 elif [ ${schedule:2:1} = 'h' ]; then
-    echo "Set up cron job ro run every" ${schedule:0:2} "hours"
+    echo -n "Set up cron job ro run every" ${schedule:0:2} "hours"
     pause
     crontab -l | { cat; echo "0 */${schedule:0:2} * * * cd ${pwd}/lib/ && python sensors.py > /dev/null"; } | crontab -
 else
@@ -77,6 +81,7 @@ else
     exit
 fi
 
+echo
 echo -n "Setting up sensor libraries"
 pause
 
