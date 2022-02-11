@@ -5,10 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PI-WEATHERSTATION</title>
 
+    <style>
+    * { font-family: "Trebuchet MS"; }
+    	#left, #middle, #right {
+    		display: inline-block; 
+    		*display: inline; 
+    		zoom: 1; 
+    		vertical-align: top;
+    	}
+    	#left {width: 33%; text-align: center;}
+		#middle {width: 33%; text-align: center; 
+      border-left: 1px dashed; gray; border-right: 1px dashed; black;}
+		#right {width: 33%; text-align: center;}
+		#actualHolder { font-size: 20px; }
+    #s1,#s2,#s3 { font-size: 70px; font-weight: bold; }
+    </style>
+
     <script src="highcharts.js"></script>
   </head>
   <body>
-    <div id="container" style="width:100%; height:400px;"></div>
+  	<h1><center>PI-Weatherstation</center></h1>
+    <br><br><br>
+  	<div id="actualHolder" style="width: 100%: height: 50%;">
+  		<div id="left"><span id="s1">123</span><br>Luftdruck</div>
+    	<div id="middle"><span id="s2">123</span><br>Temperatur</div>
+    	<div id="right"><span id="s3">123</span><br>Luftfeuchtigkeit</div>
+  	</div>
+    <div id="container" style="width:100%; height:650px; margin-top: 100px;"></div>
     
     <script>
       // self executing function here
@@ -19,14 +42,18 @@
         if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
            if (xmlhttp.status == 200) {
                data = JSON.parse(xmlhttp.responseText);
-             
+              
+               document.getElementById("s1").innerText = data.pressure[data.pressure.length-1][1] + " hPa";
+                document.getElementById("s2").innerText = data.temperature[data.temperature.length-1][1] + "°C";
+                document.getElementById("s3").innerText = data.humidity[data.humidity.length-1][1] + "%";
+
                var myChart = Highcharts.chart('container', {
                 chart: {
                     type: 'line',
                     zoomType: 'x'
                 },
                 title: {
-                    text: 'Pi-Weatherstation'
+                    text: 'Verlauf (180 Tage)'
                 },
                 xAxis: {
                     type: 'datetime',
