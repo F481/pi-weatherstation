@@ -9,7 +9,7 @@ conn = sqlite3.connect('/home/pi/pi-weatherstation/db/pi-weatherstation.db')
 c = conn.cursor()
 
 # get newest points from last half year (cfg=15m), but themself asc because of highcharts
-c.execute('SELECT * FROM (SELECT * FROM {tn} ORDER BY id DESC LIMIT 17) sub ORDER BY id ASC'.\
+c.execute('SELECT * FROM (SELECT * FROM {tn} ORDER BY id DESC LIMIT 17520) sub ORDER BY id ASC'.\
         format(tn='weather_data'))
 
 weather_data = {}
