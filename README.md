@@ -25,4 +25,4 @@ How to set up the pi-weatherstation?
 
 How it will look like?
 -----------------------
-![Pi-Weatherstation Frontend](doc/Pi-Weatherstation_Frontend.png)
+![grafik](https://user-images.githubusercontent.com/306065/153707317-7d52a77b-5a0f-4f6b-99c4-90e73b40d4dd.png)
